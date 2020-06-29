@@ -1,0 +1,11 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: prometheus-proxy-ingress
+  namespace: monitoring
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: prometheus-proxy-ip
+spec:
+  backend:
+    serviceName: prometheus-proxy-service
+    servicePort: 50051

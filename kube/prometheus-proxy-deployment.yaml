@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: prometheus-proxy
+  namespace: monitoring
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: prometheus-proxy
+    spec:
+      containers:
+        - name: prometheus-proxy
+          image: pambrose/prometheus-proxy:1.3.10
+          env:
+          - name: METRICS_ENABLED
+            value: "true"
+          - name: ADMIN_ENABLED
+            value: "true"
+          ports:
+          - name: proxy-port
+            containerPort: 8080
+          - name: metrics-port
+            containerPort: 8082
+          - name: admin-port
+            containerPort: 8092
+          - name: agent-grpc-port
+            containerPort: 50051
